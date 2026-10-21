@@ -99,11 +99,11 @@ function Chart({ title, what, thisWeek, lastWeek, data }: { title: string; what:
   return (
     <section className="card p-6">
       <div className="flex items-start justify-between gap-4">
-        <div>
+        <div className="min-w-0">
           <h2 className="font-jak text-[16px] font-semibold">{title}</h2>
           <p className="t-sm text-[color:var(--ink-60)]">{what}</p>
         </div>
-        <div className="text-right">
+        <div className="shrink-0 text-right">
           <p className="t-sm whitespace-nowrap tabular-nums" style={{ color: tone }}>
             <span aria-hidden>{diff > 0 ? "▲" : diff < 0 ? "▼" : "—"}</span> {diff === 0 ? "Same as last week" : `${Math.abs(diff)} ${diff > 0 ? "more" : "fewer"} than last week`}
           </p>
