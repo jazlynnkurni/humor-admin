@@ -16,17 +16,6 @@ export function Page({ eyebrow, title, lede, action, children }: { eyebrow: stri
   );
 }
 
-/** A stat tile: the number is the chart. */
-export function Stat({ n, label, sub, i = 0 }: { n: string | number; label: string; sub?: string; i?: number }) {
-  return (
-    <div className="card enter flex flex-col gap-2 p-6" style={{ "--i": i } as React.CSSProperties}>
-      <span className="font-jak text-[39px] font-semibold leading-none tracking-[-0.02em] tabular-nums">{n}</span>
-      <span className="t-sm text-[color:var(--ink-60)]">{label}</span>
-      {sub && <span className="t-sm text-[color:var(--ink-40)]">{sub}</span>}
-    </div>
-  );
-}
-
 /** One series of thin bars with 4px rounded ends, baseline anchored, hover tooltip via title. */
 export function Bars({ data, label }: { data: { k: string; v: number }[]; label: string }) {
   const max = Math.max(1, ...data.map((d) => d.v));

@@ -21,6 +21,9 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
+  /* local preview only: never engages in a production build */
+  if (process.env.NODE_ENV === "development" && process.env.ADMIN_PREVIEW === "1") return response;
+
   const path = request.nextUrl.pathname;
   const open = OPEN.some((p) => path.startsWith(p));
   const { data } = await supabase.auth.getClaims();

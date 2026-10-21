@@ -9,6 +9,7 @@ export type Viewer = { id: string; email: string | null; isSuperadmin: boolean }
  * effect on the next page load.
  */
 export const getViewer = cache(async (): Promise<Viewer | null> => {
+  if (process.env.NODE_ENV === "development" && process.env.ADMIN_PREVIEW === "1") return { id: "preview", email: "preview@local", isSuperadmin: true };
   const supabase = await createClient();
   const claims = (await supabase.auth.getClaims()).data?.claims;
   if (!claims?.sub) return null;
