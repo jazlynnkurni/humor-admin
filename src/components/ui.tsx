@@ -41,7 +41,7 @@ export function Bars({ data, label }: { data: { k: string; v: number }[]; label:
 export function Table({ head, rows, empty }: { head: string[]; rows: React.ReactNode[][]; empty: string }) {
   if (rows.length === 0) return <p className="t-sm text-[color:var(--ink-60)]">{empty}</p>;
   return (
-    <div className="card overflow-x-auto">
+    <div className="card enter overflow-x-auto" style={{ "--i": 1 } as React.CSSProperties}>
       <table className="w-full text-left text-[14px]">
         <thead>
           <tr className="border-b border-[color:var(--ink-12)]">

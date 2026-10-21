@@ -23,14 +23,14 @@ export default async function EditMedia({ params, searchParams }: { params: Prom
 
       <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
         <div className="flex flex-col gap-6">
-          <form action={updateGeneration} className="card flex flex-col gap-4 p-6">
+          <form action={updateGeneration} className="card enter flex flex-col gap-4 p-6" style={{ "--i": 1 } as React.CSSProperties}>
             <input type="hidden" name="id" value={g.id} />
             <h2 className="font-jak text-[16px] font-semibold">Setup</h2>
             <input name="setup" defaultValue={g.setup} required className="input" />
             <button className="btn btn-paper self-start">Save setup</button>
           </form>
 
-          <section className="card p-6">
+          <section className="card enter p-6" style={{ "--i": 2 } as React.CSSProperties}>
             <h2 className="font-jak text-[16px] font-semibold">Punchlines</h2>
             <ul className="mt-4 flex flex-col divide-y divide-[color:var(--ink-06)]">
               {cands.map((c) => (
@@ -61,11 +61,11 @@ export default async function EditMedia({ params, searchParams }: { params: Prom
         </div>
 
         <div className="flex flex-col gap-6">
-          <section className="card p-6">
+          <section className="card enter p-6" style={{ "--i": 3 } as React.CSSProperties}>
             <h2 className="font-jak text-[16px] font-semibold">Prompt sent</h2>
             <pre className="mt-3 whitespace-pre-wrap text-[12px] leading-[1.5] text-[color:var(--ink-60)]">{g.prompt}</pre>
           </section>
-          <form action={deleteGeneration} className="card flex flex-col gap-3 p-6">
+          <form action={deleteGeneration} className="card enter flex flex-col gap-3 p-6" style={{ "--i": 4 } as React.CSSProperties}>
             <input type="hidden" name="id" value={g.id} />
             <h2 className="font-jak text-[16px] font-semibold text-oxblood">Delete this generation</h2>
             <p className="t-sm text-[color:var(--ink-60)]">Removes the setup, its {cands.length} punchline{cands.length === 1 ? "" : "s"}, and every lol on them. This cannot be undone.</p>

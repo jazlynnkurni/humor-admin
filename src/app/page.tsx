@@ -53,12 +53,12 @@ export default async function Overview() {
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
-        <Chart title="Generations per day" what="How often members asked the model for punchlines, last 14 days" thisWeek={sum(gensPerDay, 7, 14)} lastWeek={sum(gensPerDay, 0, 7)} data={gensPerDay} />
-        <Chart title="Lols per day" what="How many punchlines and jokes got a laugh, last 14 days" thisWeek={sum(lolsPerDay, 7, 14)} lastWeek={sum(lolsPerDay, 0, 7)} data={lolsPerDay} />
+        <Chart i={4} title="Generations per day" what="How often members asked the model for punchlines, last 14 days" thisWeek={sum(gensPerDay, 7, 14)} lastWeek={sum(gensPerDay, 0, 7)} data={gensPerDay} />
+        <Chart i={5} title="Lols per day" what="How many punchlines and jokes got a laugh, last 14 days" thisWeek={sum(lolsPerDay, 7, 14)} lastWeek={sum(lolsPerDay, 0, 7)} data={lolsPerDay} />
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
-        <section className="card p-6 lg:col-span-2">
+        <section className="card enter p-6 lg:col-span-2" style={{ "--i": 6 } as React.CSSProperties}>
           <h2 className="font-jak text-[16px] font-semibold">What&apos;s landing</h2>
           <p className="t-sm text-[color:var(--ink-60)]">The five AI punchlines with the most lols, all time.</p>
           <ol className="mt-4 flex flex-col divide-y divide-[color:var(--ink-06)]">
@@ -75,7 +75,7 @@ export default async function Overview() {
             {top.length === 0 && <li className="t-sm py-3 text-[color:var(--ink-60)]">No punchline has a lol yet.</li>}
           </ol>
         </section>
-        <section className="card p-6">
+        <section className="card enter p-6" style={{ "--i": 7 } as React.CSSProperties}>
           <h2 className="font-jak text-[16px] font-semibold">Most active members</h2>
           <p className="t-sm text-[color:var(--ink-60)]">Generations, lols and jokes, added up.</p>
           <ul className="mt-4 flex flex-col gap-3">
@@ -93,11 +93,11 @@ export default async function Overview() {
   );
 }
 
-function Chart({ title, what, thisWeek, lastWeek, data }: { title: string; what: string; thisWeek: number; lastWeek: number; data: { k: string; v: number }[] }) {
+function Chart({ i = 0, title, what, thisWeek, lastWeek, data }: { i?: number; title: string; what: string; thisWeek: number; lastWeek: number; data: { k: string; v: number }[] }) {
   const diff = thisWeek - lastWeek;
   const tone = diff > 0 ? "var(--sage-2, #6f8a63)" : diff < 0 ? "var(--touch)" : "var(--ink-40)";
   return (
-    <section className="card p-6">
+    <section className="card enter p-6" style={{ "--i": i } as React.CSSProperties}>
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <h2 className="font-jak text-[16px] font-semibold">{title}</h2>
