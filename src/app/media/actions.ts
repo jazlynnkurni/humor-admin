@@ -14,7 +14,7 @@ async function admin() {
   if (!v.isSuperadmin) redirect("/denied");
   return { v, supabase: await createClient() };
 }
-const bust = () => { revalidatePath("/"); revalidatePath("/media"); revalidatePath("/votes"); };
+const bust = () => { revalidatePath("/"); revalidatePath("/media"); revalidatePath("/votes"); revalidatePath("/requests"); };
 function fail(where: string, msg: string): never {
   redirect(`${where}?error=${encodeURIComponent(msg.slice(0, 160))}`);
 }
@@ -39,8 +39,9 @@ export async function createGenerated(fd: FormData) {
   if (!setup) fail("/media/new", "A setup is required.");
   let result: Awaited<ReturnType<typeof generatePunchlines>>;
   try { result = await generatePunchlines(setup); } catch (e) { fail("/media/new", e instanceof Error ? e.message : "Generation failed."); }
-  const { data: gen, error } = await supabase.from("generations").insert({ user_id: v.id, setup, prompt: result.prompt, model: result.model, day: todayNY() }).select("id").single();
+  const { data: gen, error } = await supabase.from("generations").insert({ user_id: v.id, setup, prompt: result.prompt, model: result.model, day: todayNY(), chain_id: result.chainId }).select("id").single();
   if (error) fail("/media/new", error.message);
+  await supabase.from("llm_responses").insert(result.responses.map((r) => ({ ...r, generation_id: gen.id })));
   const { error: e2 } = await supabase.from("candidates").insert(result.punchlines.map((p) => ({ generation_id: gen.id, punchline: p })));
   if (e2) fail("/media/new", e2.message);
   bust(); redirect(`/media/${gen.id}`);

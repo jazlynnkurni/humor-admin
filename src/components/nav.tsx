@@ -5,7 +5,18 @@ import { NavPill, type NavItem } from "./nav-pill";
 export async function Nav() {
   const v = await getViewer();
   const items: NavItem[] = v?.isSuperadmin
-    ? [{ href: "/", label: "Overview" }, { href: "/users", label: "Users" }, { href: "/media", label: "Media" }, { href: "/votes", label: "Votes" }, { signout: true }]
+    ? [
+        { href: "/", label: "Overview" },
+        { href: "/users", label: "Users" },
+        { href: "/media", label: "Media" },
+        { href: "/requests", label: "Requests" },
+        { href: "/prompts", label: "Prompts" },
+        { href: "/models", label: "Models" },
+        { href: "/signup", label: "Sign-up", smHide: true },
+        { href: "/images", label: "Images", smHide: true },
+        { href: "/votes", label: "Votes", smHide: true },
+        { signout: true },
+      ]
     : v ? [{ signout: true }] : [{ href: "/login", label: "Sign in" }];
   return (
     <nav className="nav">
